@@ -20,9 +20,9 @@ Para el que le guste, lo unico que tienen que hacer (en teoria) es:
 
 2) Instalar dependencias: `sudo apt-get install gir1.2-gtk-3.0 gir1.2-webkit-3.0`
 
-3) añadir al final de `~/.bashrc` lo siguiente: `alias webmail='python /home/su-usuario/donde/tengan/el/archivo/webmail.py`
+3) instalarlo simplemente con:
+    `sudo make`
 
-4) reiniciar su terminal y ya pueden acceder al webmail con el comando `webmail`
 
 Aclaraciones
 ------------

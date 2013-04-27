@@ -14,6 +14,9 @@ class Webmail:
     def __init__(self):
         self.window = gtk.Window()
         self.window.connect ('delete_event', self.close_app)
+        
+        # Some settings
+        self.window.set_icon_from_file("/usr/share/pixmaps/famaf-webmail.png")
         self.window.set_title("Webmail FaMAF")
         self.window.set_default_size(1210,600)
         

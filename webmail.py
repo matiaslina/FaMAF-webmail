@@ -5,7 +5,7 @@ import sys
 from gi.repository import Gtk as gtk
 from gi.repository import Gdk
 from gi.repository import WebKit as webkit
-
+DEBUG = False
 WEBMAIL_URL = "https://webmail.famaf.unc.edu.ar/"
 
 
@@ -21,6 +21,7 @@ class Webmail:
         
         self.scrolled_window = gtk.ScrolledWindow()
         self.webview = webkit.WebView ()
+        self.webview.connect ('resource-request-starting', self.on_link_request)
         self.scrolled_window.add (self.webview)
         
         vbox.pack_start(self.scrolled_window, True, True,0)
@@ -35,6 +36,10 @@ class Webmail:
         
     def close_app(self, widget, event, data=None):
         gtk.main_quit()
+        
+    def on_link_request(self, view, frame, res, req, response):
+        if DEBUG:
+            print "link -> %s" % self.webview.get_uri()
         
 if __name__ == '__main__':
     Gdk.threads_init()

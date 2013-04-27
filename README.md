@@ -17,6 +17,4 @@ Para el que le guste, lo unico que tienen que hacer (en teoria) es:
 Autor
 -----
 
-Matias Linares <matiaslina@gmail.com>
-
-
+Matias Linares <mlm0111@famaf.unc.edu.ar>

@@ -21,7 +21,7 @@ Para el que le guste, lo unico que tienen que hacer (en teoria) es:
 2. Instalar dependencias: `sudo apt-get install gir1.2-gtk-3.0 gir1.2-webkit-3.0`
 
 3. Instalarlo simplemente con:
-    `sudo make`
+    `sudo make install`
 
 4. Ahora se puede ejecutar en consola con `webmail`
 

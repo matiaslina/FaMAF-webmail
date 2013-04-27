@@ -13,16 +13,17 @@ Instalacion
 
 Para el que le guste, lo unico que tienen que hacer (en teoria) es:
 
-1) Descargar la aplicacion:
+1. Descargar la aplicacion:
 * `git clone git://github.com/matiaslina/FaMAF-webmail.git`
 * `wget https://github.com/matiaslina/FaMAF-webmail/archive/master.zip`
 * Clickear mas arriba donde dice zip.
 
-2) Instalar dependencias: `sudo apt-get install gir1.2-gtk-3.0 gir1.2-webkit-3.0`
+2. Instalar dependencias: `sudo apt-get install gir1.2-gtk-3.0 gir1.2-webkit-3.0`
 
-3) instalarlo simplemente con:
+3. Instalarlo simplemente con:
     `sudo make`
 
+4. Ahora se puede ejecutar en consola con `webmail`
 
 Aclaraciones
 ------------

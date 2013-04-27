@@ -1,5 +1,11 @@
 BINARY=/usr/bin/webmail
 
 install:
-	cp webmail.py ${BINARY}
-	chmod +x ${BINARY}
+	@echo "Copiando archivos en ${BINARY}"
+	@cp webmail.py ${BINARY}
+	@echo "Haciendo ejecutable el programa"
+	@chmod +x ${BINARY}
+
+uninstall:
+	@echo "Removiendo los archivos necesarios..."
+	@rm ${BINARY}

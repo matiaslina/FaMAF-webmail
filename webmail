@@ -1,3 +1,40 @@
 #!/bin/bash
+config_dir=${HOME}/.famaf-webmail
+config_file=${config_dir}/config
 
-python /usr/share/famaf-webmail/webmail.py $1 $2 $3 &
+check_override() {
+    printf "Ya hay un usuario cargado. Desea sobreescribirlo? [s/N] "
+    read ov
+    if [ "$ov" = "n" ]; then
+        echo "Saliendo $ov"
+        exit
+    elif [ "$ov" = "s" ]; then
+        return $TRUE
+    else
+        check_override
+    fi
+}
+
+if [ "$1" = "--new-user" ]
+then
+    if [ ! -d $config_dir ]; then
+        mkdir $config_dir
+    fi
+    ov=''
+    if [ -f $config_file ]; then
+        check_override
+    fi
+
+    printf "Ingrese su usuario: "
+    read user
+    read -s -p "Contraseña: " pass
+    echo ""
+
+    echo "[login]
+username=$user
+password=$pass" > $config_file 
+elif [ "$1" = "--delete-user" ]; then
+    rm -rf $config_dir
+else
+    python /usr/share/famaf-webmail/webmail.py $1 $2 &
+fi

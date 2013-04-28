@@ -33,6 +33,8 @@ then
     echo "[login]
 username=$user
 password=$pass" > $config_file 
+
+    python /usr/share/famaf-webmail/config.py &
 elif [ "$1" = "--delete-user" ]; then
     rm -rf $config_dir
 else

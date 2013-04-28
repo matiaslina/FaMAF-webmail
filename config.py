@@ -3,6 +3,7 @@
 
 from os import getenv, path, mkdir
 from ConfigParser import ConfigParser
+import base64
 
 
 config_dir = getenv("HOME") + "/.famaf-webmail/"
@@ -13,22 +14,6 @@ manager = ConfigParser()
 def exists_config_file ():    
     return path.isdir(config_dir) and path.isfile(config_file)
     
-def create_simple_config_file(username, password):
-    if username == '' or password == '':
-        return
-    try:
-        mkdir(config_dir, 0750)
-    except OSError, e:
-        print "Cannot make the directory %s. Directory already exists" % config_dir
-    
-    with open(config_file, 'w') as cfg:
-        manager.add_section ('login')
-        manager.set('login', 'username', username)
-        manager.set('login', 'password', password)
-        manager.write(cfg)
-        
-        print "Config file created!"
-        
 def get_user_data ():
     if exists_config_file():
         manager.read (config_file)
@@ -36,7 +21,17 @@ def get_user_data ():
         username = manager.get("login", "username")
         password = manager.get("login", "password")
         
-        return (username,password)
+        return (username,base64.standard_b64decode(password))
         
     else:
         return None
+
+if __name__ == "__main__":
+    if exists_config_file():
+        manager.read (config_file)
+
+        password = manager.get ("login","password")
+        manager.set('login', 'password', base64.standard_b64encode(password))
+        with open(config_file, "w") as f:
+            manager.write(f)
+

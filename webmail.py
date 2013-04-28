@@ -72,6 +72,8 @@ class Webmail:
                         var pwd = $("#rcmloginpwd");
                         usr.val("%s");
                         pwd.val("%s");
+                        
+                        $("form").submit();
                     });""" % data)
                 log ("Exito!")
             else:

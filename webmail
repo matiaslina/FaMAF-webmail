@@ -38,5 +38,5 @@ password=$pass" > $config_file
 elif [ "$1" = "--delete-user" ]; then
     rm -rf $config_dir
 else
-    python /usr/share/famaf-webmail/webmail.py $1 $2 &
+    python /usr/share/famaf-webmail/webmail.py &
 fi

@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
+# For make this with python3 and make it work, I need to drop out the base64 encode.
+# This will be solved in the nexts days/weeks/years ;-)
+
 from os import getenv, path, mkdir
-from ConfigParser import ConfigParser
-import base64
+from configparser import ConfigParser
+#import base64
 
 
 config_dir = getenv("HOME") + "/.famaf-webmail/"
@@ -20,18 +23,18 @@ def get_user_data ():
         
         username = manager.get("login", "username")
         password = manager.get("login", "password")
-        
-        return (username,base64.standard_b64decode(password))
+        return (username,password)
         
     else:
         return None
 
 if __name__ == "__main__":
-    if exists_config_file():
-        manager.read (config_file)
-
-        password = manager.get ("login","password")
-        manager.set('login', 'password', base64.standard_b64encode(password))
-        with open(config_file, "w") as f:
-            manager.write(f)
+    pass
+#    if exists_config_file():
+#        manager.read (config_file)
+#
+#        password = manager.get ("login","password")
+#        manager.set('login', 'password', str(base64.standard_b64encode(bytes(password,'utf-8'))))
+#        with open(config_file, "w") as f:
+#            manager.write(f)
 

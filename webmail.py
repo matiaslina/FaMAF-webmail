@@ -12,10 +12,10 @@ WEBMAIL_URL = "https://webmail.famaf.unc.edu.ar/"
 
 def log (string):
     if DEBUG:
-        print string
+        print (string)
 
 def usage():
-    print """
+    print ("""
     Usage: webmail [options]
     Where the options are:
         -h, --help      Print this help
@@ -24,7 +24,7 @@ def usage():
         
     The account option must be:
         -a username/password
-        --account=username/password"""
+        --account=username/password""")
 
 class Webmail:
 
@@ -96,7 +96,7 @@ if __name__ == '__main__':
     try:
         opts, args = getopt.getopt(sys.argv[1:], "ha:d",["help","account=","debug"])
     except getopt.GetoptError as err:
-        print str(err)
+        print (str(err))
         usage()
         sys.exit(2)
     

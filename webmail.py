@@ -2,7 +2,6 @@
 #-*- coding:utf-8 -*-
 
 import config
-import getopt
 import sys
 from gi.repository import Gtk as gtk
 from gi.repository import Gdk
@@ -93,25 +92,7 @@ class Webmail:
         
         
 if __name__ == '__main__':
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], "ha:d",["help","account=","debug"])
-    except getopt.GetoptError as err:
-        print (str(err))
-        usage()
-        sys.exit(2)
-    
-    output = None
     DEBUG = False
-    
-    for o, a in opts:
-        if o in ("-d","--debug"):
-            DEBUG = True
-        elif o in ("-h","--help"):
-            usage()
-            sys.exit()
-        elif o in ("-a","--account"):
-            arr = a.split("/")
-            config.create_simple_config_file(arr[0],arr[1])
             
     Gdk.threads_init()
     webmail = Webmail()

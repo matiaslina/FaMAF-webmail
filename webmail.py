@@ -61,10 +61,14 @@ class Webmail:
                     $(document).ready(function (){
                         var usr = $("#rcmloginuser");
                         var pwd = $("#rcmloginpwd");
-                        usr.val("%s");
-                        pwd.val("%s");
                         
-                        $("form").submit();
+                        if ( usr != '' && pwd != '')
+                        {
+                            usr.val("%s");
+                            pwd.val("%s");
+                            
+                            $("form").submit();
+                        }
                     });""" % data)
                 log ("Exito!")
             else:

@@ -35,8 +35,15 @@ username=$user
 password=$pass
 
 [Download]
-dir=$HOME" > $config_file 
-
+dir=$HOME
+command=" > $config_file 
+    
+    echo "
+Por favor, habra el archivo ${config_file} para configurar
+el comando de ejecucion de descarga poniendo '%s' en primer lugar para la url
+de descarga y luego para el nombre de archivo. Por ejemplo:
+    lxterminal -e \"wget %s -o %s\""
+    
     python /usr/share/famaf-webmail/config.py &
 elif [ "$1" = "--delete-user" ]; then
     rm -rf $config_dir

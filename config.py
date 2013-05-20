@@ -27,6 +27,14 @@ def get_user_data ():
         
     else:
         return None
+        
+def get_download_dir ():
+    if exists_config_file():
+        manager.read (config_file)
+        
+        return manager.get("Download", "dir")
+    
+    return None
 
 if __name__ == "__main__":
     pass

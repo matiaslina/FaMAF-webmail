@@ -27,14 +27,6 @@ def usage():
 
 class Webmail:
 
-    js_function = """
-    user_txt = document.getElementById("rcmloginuser");
-    pass_txt = document.getElementById("rcmloginpwd");
-    
-    user_txt.value = %(username)s
-    pass_txt.value = %(password)s
-    """
-
     def __init__(self):
         self.window = gtk.Window()
         self.window.connect ('delete_event', self.close_app)

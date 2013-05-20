@@ -38,11 +38,3 @@ def get_download_dir ():
 
 if __name__ == "__main__":
     pass
-#    if exists_config_file():
-#        manager.read (config_file)
-#
-#        password = manager.get ("login","password")
-#        manager.set('login', 'password', str(base64.standard_b64encode(bytes(password,'utf-8'))))
-#        with open(config_file, "w") as f:
-#            manager.write(f)
-

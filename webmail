@@ -32,7 +32,10 @@ then
 
     echo "[login]
 username=$user
-password=$pass" > $config_file 
+password=$pass
+
+[Download]
+dir=$HOME" > $config_file 
 
     python /usr/share/famaf-webmail/config.py &
 elif [ "$1" = "--delete-user" ]; then

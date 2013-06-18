@@ -1,6 +1,6 @@
 BINARY=/usr/bin/webmail
 APP_FOLDER=/usr/share/famaf-webmail
-PIXBUF=/usr/share/pixmaps/famaf-webmail.png
+PIXBUF=/usr/share/pixmaps/
 MANPAGE=/usr/share/man/man1/webmail.1.gz
 
 install:
@@ -19,6 +19,6 @@ install:
 uninstall:
 	@echo "Removiendo los archivos necesarios..."
 	rm ${BINARY}
-	rm ${PIXBUF}
+	rm ${PIXBUF}famaf-webmail.png
 	rm -rf ${APP_FOLDER}
 	rm ${MANPAGE}

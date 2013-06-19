@@ -47,6 +47,11 @@ class Webmail:
         vbox.pack_start(self.scrolled_window, True, True,0)
         self.window.add(vbox)
 
+        self.status_icon = gtk.StatusIcon()
+        self.status_icon.set_from_file ("/usr/share/pixmaps/famaf-webmail.png")
+        self.status_icon.connect ('popup-menu', self._status_icon_right_click)
+        self.status_icon.connect ('activate', self._status_icon_left_click)
+
         self._start_cache()
 
     def _start_cache(self):
@@ -84,9 +89,32 @@ class Webmail:
         self.window.show_all()
         
     def close_app(self, widget, event, data=None):
-        gtk.main_quit()
-        
-        
+        self.window.hide_on_delete()
+        return True
+
+    def _status_icon_right_click (self, icon, button, time):
+        self.menu = gtk.Menu()
+
+        quit = gtk.MenuItem()
+        quit.set_label("Quit")
+
+        quit.connect("activate", gtk.main_quit)
+
+        self.menu.append(quit)
+
+        self.menu.show_all()
+
+        def pos (menu, icon):
+            return (gtk.StatusIcon.position_menu(menu, icon))
+        self.menu.popup (None, None, pos, self.status_icon, button, time)
+
+    def _status_icon_left_click (self, widget):
+        if self.window.get_visible():
+            self.window.hide()
+        else:
+            self.window.show_all()
+        return True
+
 if __name__ == '__main__':
     DEBUG = False
     

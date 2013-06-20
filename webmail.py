@@ -4,10 +4,17 @@
 import config
 import sys
 from gi.repository import Gtk as gtk
-from gi.repository import Gdk
+from gi.repository import Gdk, GdkPixbuf
 from gi.repository import WebKit as webkit
 
+try:
+    from gi.repository import Notify
+except ImportError:
+    print "Por favor, instale gir1.2-notify-0.7 o \
+           similar para ejecutar la aplicacion"
+
 WEBMAIL_URL = "https://webmail.famaf.unc.edu.ar/"
+ICON_PATH = "/usr/share/pixmaps/famaf-webmail.png"
 
 def log (string):
     if DEBUG:
@@ -25,6 +32,22 @@ def usage():
         -a username/password
         --account=username/password"""
 
+class WebmailNotification:
+    def __init__(self):
+        Notify.init ("FaMAF Webmail")
+        self.notified = 0
+        self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(ICON_PATH,38,38)
+    
+    def new_emails(self, n):
+        if self.notified != n:
+            new_emails_notification = Notify.Notification.new (
+                    "FaMAF Webmail", 
+                    "Tiene %s nuevos emails" % n,
+                    "")
+            self.notified = n
+            new_emails_notification.set_icon_from_pixbuf(self.pixbuf)
+            new_emails_notification.show()
+
 class Webmail:
 
     def __init__(self):
@@ -32,7 +55,7 @@ class Webmail:
         self.window.connect ('delete_event', self.close_app)
         
         # Some settings
-        self.window.set_icon_from_file("/usr/share/pixmaps/famaf-webmail.png")
+        self.window.set_icon_from_file(ICON_PATH)
         self.window.set_title("Webmail FaMAF")
         self.window.set_default_size(1210,600)
         
@@ -42,17 +65,19 @@ class Webmail:
         self.scrolled_window = gtk.ScrolledWindow()
         self.webview = webkit.WebView ()
         self.webview.connect ('load-finished', self._exec_login_script)
+        self.webview.connect ('title-changed', self._on_title_change)
         self.scrolled_window.add (self.webview)
         
         vbox.pack_start(self.scrolled_window, True, True,0)
         self.window.add(vbox)
 
         self.status_icon = gtk.StatusIcon()
-        self.status_icon.set_from_file ("/usr/share/pixmaps/famaf-webmail.png")
+        self.status_icon.set_from_file (ICON_PATH)
         self.status_icon.connect ('popup-menu', self._status_icon_right_click)
         self.status_icon.connect ('activate', self._status_icon_left_click)
 
         self._start_cache()
+        self.notifications = WebmailNotification()
 
     def _start_cache(self):
         webkit.set_cache_model(webkit.CacheModel.WEB_BROWSER)
@@ -115,10 +140,17 @@ class Webmail:
             self.window.show_all()
         return True
 
+    def _on_title_change(self, view, frame, title):
+        # Just a little debug
+        print title
+        if title.startswith("("):
+            n_emails = title[title.find("(")+1:title.find(")")]
+            self.notifications.new_emails (n_emails)
+
+        return True
+
 if __name__ == '__main__':
     DEBUG = False
-    
-            
     Gdk.threads_init()
     webmail = Webmail()
     webmail.load(WEBMAIL_URL)

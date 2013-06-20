@@ -39,11 +39,11 @@ class WebmailNotification:
         self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(ICON_PATH,38,38)
     
     def new_emails(self, n):
-        if self.notified != n:
+        if self.notified < n:
             new_emails_notification = Notify.Notification.new (
                     "FaMAF Webmail", 
                     "Tiene %s nuevos emails" % n,
-                    "")
+                    None)
             self.notified = n
             new_emails_notification.set_icon_from_pixbuf(self.pixbuf)
             new_emails_notification.show()
